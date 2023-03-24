@@ -2,10 +2,11 @@ package ra.bussinessImp;
 
 import ra.bussiness.ISHOP;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
-public class Author implements ISHOP {
+public class Author implements ISHOP, Serializable {
     private  int authorId;
     private String authorName;
     private  boolean sex;

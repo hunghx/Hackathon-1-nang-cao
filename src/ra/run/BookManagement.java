@@ -3,16 +3,33 @@ package ra.run;
 import ra.bussinessImp.Author;
 import ra.bussinessImp.Book;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class BookManagement {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         List<Book> listBook = new ArrayList<>();
         List<Author> listAuthor = new ArrayList<>();
+        File file1 = new File("book.txt");
+        File file2 = new File("author.txt");
+        if (file1.exists()) {
+            try {
+                ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(file1));
+                ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(file2));
+                listBook = (List<Book>) ois1.readObject();
+                listAuthor = (List<Author>) ois2.readObject();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            file1.createNewFile();
+            file2.createNewFile();
+        }
 
         while (true) {
             System.out.println("****************JAVA-HACKATHON-05-ADVANCE-1-MENU***************\n" +
@@ -43,6 +60,14 @@ public class BookManagement {
                     break;
                 case 5:
                     System.out.println("thoát");
+                    try {
+                        ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(file1));
+                        ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream(file2));
+                        oos1.writeObject(listBook);
+                        oos2.writeObject(listAuthor);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     System.exit(0);
                     break;
                 default:
@@ -55,6 +80,7 @@ public class BookManagement {
 
     public static void createAuthors(List<Author> list , Scanner sc){
         // nhập số lượng tác giả cần thêm mới
+
         System.out.println("Nhập số luowngj tác giả cần thêm");
         int count = Integer.parseInt(sc.nextLine());
         for (int i = 0; i <count ; i++) {

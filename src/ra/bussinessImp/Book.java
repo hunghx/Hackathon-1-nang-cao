@@ -2,10 +2,11 @@ package ra.bussinessImp;
 
 import ra.bussiness.ISHOP;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
-public class Book implements ISHOP,Comparable<Book> {
+public class Book implements ISHOP,Comparable<Book>, Serializable {
     private  int bookId;
     private  String bookName;
     private  String title;
